@@ -42,5 +42,16 @@ void main() {
           '/test.txt', 'c:\\Users\\fshan\\Projects\\ftp_client_app\\test.txt');
       expect(downloaded, isTrue);
     });
+
+    test('list directory content', () async {
+      FTPServer server = FTPServer(ip: '192.168.100.12', port: 2121);
+      await server.connect();
+      FTPService ftpService = FTPService(server);
+
+      final content = await ftpService.dir();
+      for (var element in content) {
+        print(element.name);
+      }
+    });
   });
 }

@@ -6,7 +6,7 @@ import '../viewmodels/ftp_viewmodel.dart';
 class FileTransferScreen extends StatelessWidget {
   final FTPServer server;
 
-  FileTransferScreen(this.server);
+  const FileTransferScreen(this.server, {super.key});
 
   @override
   Widget build(BuildContext context) {

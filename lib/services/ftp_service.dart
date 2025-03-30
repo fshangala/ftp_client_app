@@ -8,6 +8,12 @@ class FTPService {
 
   FTPService(this.server);
 
+  Future<List<FTPEntry>> dir() async {
+    List<FTPEntry> dir = [];
+    dir = await server.connection.listDirectoryContent();
+    return dir;
+  }
+
   // Method to connect to the FTP server
   Future<bool> connect() async {
     FTPConnect ftpClient = FTPConnect(
@@ -16,6 +22,7 @@ class FTPService {
       pass: server.password,
       port: server.port,
     );
+
     try {
       await ftpClient.connect();
       return true;
