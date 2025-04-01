@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ftp_client_app/views/add_ftp_server_screen.dart';
+import 'package:ftp_client_app/views/file_explorer_screen.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/ftp_viewmodel.dart';
 import 'file_transfer_screen.dart';
@@ -48,19 +49,38 @@ class HomeScreen extends StatelessWidget {
                       return ListTile(
                         title: Text(server.ip),
                         subtitle: Text('Username: ${server.username}'),
-                        onTap: () async {
-                          await viewModel.selectServer(server);
-                        },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () async {
+                                await viewModel.removeServer(index);
+                              },
+                            ),
+                            viewModel.currentServer == null
+                                ? IconButton(
+                                    icon: Icon(Icons.connect_without_contact),
+                                    onPressed: () async {
+                                      await viewModel.selectServer(server);
+                                    },
+                                  )
+                                : IconButton(
+                                    icon: Icon(Icons.folder_open),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              FileExplorerScreen(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                          ],
+                        ),
                       );
                     },
-                  ),
-                ),
-              if (viewModel.currentServer != null)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Connected to ${viewModel.currentServer!.ip}",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
             ],

@@ -62,4 +62,6 @@ class FTPViewModel extends ChangeNotifier {
     _progress = success ? 1.0 : 0.0;
     notifyListeners();
   }
+
+  removeServer(int index) {}
 }
