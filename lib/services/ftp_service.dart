@@ -8,10 +8,17 @@ class FTPService {
 
   FTPService(this.server);
 
+  @Deprecated("User listDirectory() instead")
   Future<List<FTPEntry>> dir() async {
     List<FTPEntry> dir = [];
     dir = await server.connection.listDirectoryContent();
     return dir;
+  }
+
+  Future<List<FTPEntry>> listDirectory(String path) async {
+    server.connection.listCommand = ListCommand.NLST;
+    await server.connection.changeDirectory(path);
+    return await server.connection.listDirectoryContent();
   }
 
   // Method to connect to the FTP server

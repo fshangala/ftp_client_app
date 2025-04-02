@@ -1,11 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ftp_client_app/services/ftp_service.dart';
 import 'package:ftp_client_app/models/ftp_server.dart';
+import 'package:logger/logger.dart' as logger;
 
 void main() {
   group('FTPService', () {
     test('should connect to the FTP server successfully', () async {
-      FTPServer server = FTPServer(ip: '192.168.100.12', port: 2121);
+      FTPServer server = FTPServer(ip: '192.168.100.100', port: 21);
       FTPService ftpService = FTPService(server);
 
       bool connected = await ftpService.connect();
@@ -44,14 +45,12 @@ void main() {
     });
 
     test('list directory content', () async {
-      FTPServer server = FTPServer(ip: '192.168.100.12', port: 2121);
+      FTPServer server = FTPServer(ip: '192.168.100.100', port: 21);
       await server.connect();
       FTPService ftpService = FTPService(server);
 
-      final content = await ftpService.dir();
-      for (var element in content) {
-        print(element.name);
-      }
+      final content = await ftpService.listDirectory('.');
+      logger.Logger().i(content);
     });
   });
 }

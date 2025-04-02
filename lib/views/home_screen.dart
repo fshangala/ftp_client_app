@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ftp_client_app/viewmodels/file_explorer_viewmodel.dart';
 import 'package:ftp_client_app/views/add_ftp_server_screen.dart';
 import 'package:ftp_client_app/views/file_explorer_screen.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var fileExplorerViewmodel = Provider.of<FileExplorerViewmodel>(
+      context,
+      listen: true,
+    );
     return Scaffold(
       appBar: AppBar(title: Text('FTP Client')),
       body: Consumer<FTPViewModel>(
@@ -58,11 +63,12 @@ class HomeScreen extends StatelessWidget {
                                 await viewModel.removeServer(index);
                               },
                             ),
-                            viewModel.currentServer == null
+                            fileExplorerViewmodel.currentServer == null
                                 ? IconButton(
                                     icon: Icon(Icons.connect_without_contact),
                                     onPressed: () async {
-                                      await viewModel.selectServer(server);
+                                      await fileExplorerViewmodel
+                                          .setCurrentServer(server);
                                     },
                                   )
                                 : IconButton(
