@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ftp_client_app/models/directory_entry.dart';
 import 'package:ftpconnect/ftpconnect.dart';
 import 'package:ftp_client_app/models/ftp_server.dart';
 
@@ -15,10 +16,11 @@ class FTPService {
     return dir;
   }
 
-  Future<List<FTPEntry>> listDirectory(String path) async {
+  Future<List<DirectoryEntry>> listDirectory(String path) async {
     server.connection.listCommand = ListCommand.NLST;
     await server.connection.changeDirectory(path);
-    return await server.connection.listDirectoryContent();
+    final contents = await server.connection.listDirectoryContentOnlyNames();
+    return contents.map((content) => DirectoryEntry(name: content)).toList();
   }
 
   // Method to connect to the FTP server

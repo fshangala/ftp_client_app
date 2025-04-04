@@ -1,0 +1,4 @@
+enum DirectoryEntryType {
+  directory,
+  file,
+}

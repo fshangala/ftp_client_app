@@ -45,7 +45,7 @@ void main() {
     });
 
     test('list directory content', () async {
-      FTPServer server = FTPServer(ip: '192.168.100.100', port: 21);
+      FTPServer server = FTPServer(ip: 'localhost', port: 21);
       await server.connect();
       FTPService ftpService = FTPService(server);
 

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:ftp_client_app/models/directory_entry.dart';
 import 'package:ftp_client_app/models/ftp_server.dart';
 import 'package:ftp_client_app/services/ftp_service.dart';
-import 'package:ftpconnect/ftpconnect.dart';
 import 'package:logger/logger.dart' as logger;
 
 class FileExplorerViewmodel extends ChangeNotifier {
   FTPServer? _currentServer;
-  List<FTPEntry> _entries = [];
+  List<DirectoryEntry> _entries = [];
   List<Exception> _exceptions = [];
   String _currentDirectory = '.';
   bool _loading = false;
 
   FTPServer? get currentServer => _currentServer;
-  List<FTPEntry> get entries => _entries;
+  List<DirectoryEntry> get entries => _entries;
   List<Exception> get exceptions => _exceptions;
   String get currentDirectory => _currentDirectory;
   bool get loading => _loading;

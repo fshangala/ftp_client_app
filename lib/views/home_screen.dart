@@ -4,7 +4,6 @@ import 'package:ftp_client_app/views/add_ftp_server_screen.dart';
 import 'package:ftp_client_app/views/file_explorer_screen.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/ftp_viewmodel.dart';
-import 'file_transfer_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

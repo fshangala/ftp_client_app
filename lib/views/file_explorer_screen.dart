@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ftp_client_app/models/directory_entry_type.dart';
 import 'package:ftp_client_app/viewmodels/file_explorer_viewmodel.dart';
-import 'package:ftpconnect/ftpconnect.dart';
 import 'package:provider/provider.dart';
 
 class FileExplorerScreen extends StatefulWidget {
@@ -27,12 +27,11 @@ class _FileExplorerScreenState extends State<FileExplorerScreen> {
                   itemBuilder: (context, index) {
                     final entry = viewModel.entries[index];
                     return ListTile(
-                      leading: entry.type == FTPEntryType.DIR
-                          ? Icon(Icons.folder)
-                          : Icon(Icons.insert_drive_file),
+                      leading: Icon(entry.icon),
                       trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          entry.type == FTPEntryType.DIR
+                          entry.type == DirectoryEntryType.directory
                               ? IconButton(
                                   icon: Icon(Icons.arrow_forward),
                                   onPressed: () {
@@ -48,13 +47,6 @@ class _FileExplorerScreenState extends State<FileExplorerScreen> {
                         ],
                       ),
                       title: Text(entry.name),
-                      onTap: () {
-                        if (entry.type == FTPEntryType.DIR) {
-                          viewModel.changeDirectory(entry.name);
-                        } else {
-                          // Handle file click
-                        }
-                      },
                     );
                   },
                 ),
