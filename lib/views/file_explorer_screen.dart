@@ -17,6 +17,28 @@ class _FileExplorerScreenState extends State<FileExplorerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("File Explorer - ${viewModel.currentServer?.ip}"),
+        actions: [
+          viewModel.currentPath.length > 1
+              ? IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    viewModel.goBack();
+                  },
+                )
+              : Container(),
+          IconButton(
+            onPressed: () {
+              viewModel.goHome();
+            },
+            icon: Icon(Icons.home),
+          ),
+          IconButton(
+            onPressed: () {
+              viewModel.refresh();
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: viewModel.loading
           ? Center(child: CircularProgressIndicator())
@@ -35,7 +57,7 @@ class _FileExplorerScreenState extends State<FileExplorerScreen> {
                               ? IconButton(
                                   icon: Icon(Icons.arrow_forward),
                                   onPressed: () {
-                                    viewModel.changeDirectory(entry.name);
+                                    viewModel.openDirectory(entry.name);
                                   },
                                 )
                               : IconButton(

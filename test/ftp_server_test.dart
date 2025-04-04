@@ -52,5 +52,14 @@ void main() {
       final content = await ftpService.listDirectory('.');
       logger.Logger().i(content);
     });
+
+    test('show current directory', () async {
+      FTPServer server = FTPServer(ip: 'localhost', port: 21);
+      await server.connect();
+      FTPService ftpService = FTPService(server);
+
+      final currentDirectory = await server.connection.currentDirectory();
+      logger.Logger().i(currentDirectory);
+    });
   });
 }

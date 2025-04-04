@@ -18,7 +18,11 @@ class FTPService {
 
   Future<List<DirectoryEntry>> listDirectory(String path) async {
     server.connection.listCommand = ListCommand.NLST;
-    await server.connection.changeDirectory(path);
+    if (await server.connection.checkFolderExistence(path)) {
+      await server.connection.changeDirectory(path);
+    } else {
+      throw Exception("Directory does not exist: $path");
+    }
     final contents = await server.connection.listDirectoryContentOnlyNames();
     return contents.map((content) => DirectoryEntry(name: content)).toList();
   }

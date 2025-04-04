@@ -10,22 +10,23 @@ class DirectoryEntry {
     final parts = name.split(".");
     if (parts.length == 1) {
       type = DirectoryEntryType.directory;
+      icon = Icons.folder;
     } else {
       type = DirectoryEntryType.file;
-    }
-    switch (parts.last) {
-      case "zip":
-        icon = Icons.folder_zip;
-        break;
-      case "mp4":
-        icon = Icons.video_file;
-        break;
-      case "mp3":
-        icon = Icons.audio_file;
-        break;
-      default:
-        icon = Icons.file_open;
-        break;
+      switch (parts.last) {
+        case "zip":
+          icon = Icons.folder_zip;
+          break;
+        case "mp4":
+          icon = Icons.video_file;
+          break;
+        case "mp3":
+          icon = Icons.audio_file;
+          break;
+        default:
+          icon = Icons.file_open;
+          break;
+      }
     }
   }
 
